@@ -1,0 +1,22 @@
+@model GraduateJobFinder.Models.JobPosting
+    
+<div class="cards">
+  <article class="card">
+    <header>
+      <h2>@Model.Title</h2>
+    </header>
+    <div class="content">
+      <p>
+        @Model.CompanyName
+      </p>
+      <p>
+       @Model.Description
+      </p>
+      <p>
+        @Model.Location
+      </p>
+      <p>
+        @Model.Date
+      </p>
+  </article>
+</div>

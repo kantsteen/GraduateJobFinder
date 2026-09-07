@@ -1,0 +1,49 @@
+@page
+@model GraduateJobFinder.Pages_Postings.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>JobPosting</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.JobPosting.CompanyName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.JobPosting.CompanyName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.JobPosting.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.JobPosting.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.JobPosting.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.JobPosting.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.JobPosting.Location)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.JobPosting.Location)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.JobPosting.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.JobPosting.Date)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.JobPosting.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

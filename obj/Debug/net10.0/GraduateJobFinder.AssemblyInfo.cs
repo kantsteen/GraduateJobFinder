@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GraduateJobFinder")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0bb3b965a9d3978c310744453f2c09ad259e2e72")]
 [assembly: System.Reflection.AssemblyProductAttribute("GraduateJobFinder")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GraduateJobFinder")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
