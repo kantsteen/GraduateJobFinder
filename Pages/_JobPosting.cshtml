@@ -3,7 +3,7 @@
 <div class="cards">
   <article class="card">
     <header>
-      <h2>@Model.Title</h2>
+      <h2><a href="@Model.URL" target="_blank">@Model.Title</a></h2>
     </header>
     <div class="content">
       <p>
@@ -17,6 +17,9 @@
       </p>
       <p>
         @Model.Date
+      </p>
+      <p>
+        @Model.URL
       </p>
   </article>
 </div>

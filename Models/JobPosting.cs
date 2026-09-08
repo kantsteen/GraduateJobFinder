@@ -16,5 +16,8 @@ namespace GraduateJobFinder.Models
 
         [DataType(DataType.Date)]
         public required DateTime Date { get; set; }
+        
+        [DataType(DataType.Url)]
+        public required string URL { get; set; }
     }
 }

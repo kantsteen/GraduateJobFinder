@@ -31,7 +31,8 @@ namespace GraduateJobFinder.Models
                         Title = "Senior software engineer",
                         Description = "You will work as a senior software engineer",
                         Location = "Copenhagen",
-                        Date = new DateTime(2026, 9, 7)
+                        Date = new DateTime(2026, 9, 7),
+                        URL = "https://www.novonordisk.com/careers.html"
                     },
                     new JobPosting
                     {
@@ -39,7 +40,8 @@ namespace GraduateJobFinder.Models
                         Title = "Junior .NET Developer",
                         Description = "Build reliable web applications and APIs with C# and .NET",
                         Location = "Aarhus",
-                        Date = new DateTime(2026, 9, 6)
+                        Date = new DateTime(2026, 9, 6),
+                        URL = "https://www.trifork.com/careers"
                     },
                     new JobPosting
                     {
@@ -47,7 +49,8 @@ namespace GraduateJobFinder.Models
                         Title = "Backend Developer",
                         Description = "Work with a team to develop scalable backend services for public and private clients",
                         Location = "Copenhagen",
-                        Date = new DateTime(2026, 9, 5)
+                        Date = new DateTime(2026, 9, 5),
+                        URL = "https://www.netcompany.com/careers"
                     },
                     new JobPosting
                     {
@@ -55,7 +58,8 @@ namespace GraduateJobFinder.Models
                         Title = "Software Developer",
                         Description = "Develop software solutions using modern .NET technologies and agile methods",
                         Location = "Aarhus",
-                        Date = new DateTime(2026, 9, 4)
+                        Date = new DateTime(2026, 9, 4),
+                        URL = "https://www.systematic.com/careers"
                     },
                     new JobPosting
                     {
@@ -63,7 +67,8 @@ namespace GraduateJobFinder.Models
                         Title = "Graduate Software Engineer",
                         Description = "Help create digital tools that support the development of wind energy solutions",
                         Location = "Aarhus",
-                        Date = new DateTime(2026, 9, 3)
+                        Date = new DateTime(2026, 9, 3),
+                        URL = "https://careers.vestas.com/"
                     },
                     new JobPosting
                     {
@@ -71,7 +76,8 @@ namespace GraduateJobFinder.Models
                         Title = "Junior Full-Stack Developer",
                         Description = "Join a cross-functional team building secure banking applications and services",
                         Location = "Silkeborg",
-                        Date = new DateTime(2026, 9, 2)
+                        Date = new DateTime(2026, 9, 2),
+                        URL = "https://www.bankdata.dk/job-og-karriere"
                     }
                 );
                 context.SaveChanges();
