@@ -9,6 +9,12 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
+<a asp-page="./Index" asp-route-sortOrder="@Model.NextDateSort" class="btn btn-primary">
+    @(Model.NextDateSort == "date_asc"
+        ? "Vis ældste først"
+        : "Vis nyeste først")
+</a>
+
 @foreach (var jobPosting in Model.JobPostings)
 {
     <partial name="_jobPosting" model="jobPosting" />
