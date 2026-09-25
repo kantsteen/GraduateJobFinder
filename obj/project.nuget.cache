@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+XcMm7ATZTA=",
+  "dgSpecHash": "2V9nMwAd5Ug=",
   "success": true,
-  "projectFilePath": "c:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
+  "projectFilePath": "C:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\egebo\\.nuget\\packages\\azure.core\\1.50.0\\azure.core.1.50.0.nupkg.sha512",
     "C:\\Users\\egebo\\.nuget\\packages\\azure.identity\\1.17.1\\azure.identity.1.17.1.nupkg.sha512",
@@ -142,9 +142,9 @@
       "code": "NU1901",
       "level": "Warning",
       "message": "Package 'NuGet.Packaging' 6.12.1 has a known low severity vulnerability, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
-      "projectPath": "c:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
+      "projectPath": "C:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
       "warningLevel": 1,
-      "filePath": "c:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
+      "filePath": "C:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
       "libraryId": "NuGet.Packaging",
       "targetGraphs": [
         "net10.0"
@@ -154,9 +154,9 @@
       "code": "NU1901",
       "level": "Warning",
       "message": "Package 'NuGet.Protocol' 6.12.1 has a known low severity vulnerability, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
-      "projectPath": "c:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
+      "projectPath": "C:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
       "warningLevel": 1,
-      "filePath": "c:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
+      "filePath": "C:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
       "libraryId": "NuGet.Protocol",
       "targetGraphs": [
         "net10.0"

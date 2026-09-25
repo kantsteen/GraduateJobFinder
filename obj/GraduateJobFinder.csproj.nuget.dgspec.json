@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj": {}
+    "C:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj": {}
   },
   "projects": {
-    "c:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj": {
+    "C:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
+        "projectUniqueName": "C:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
         "projectName": "GraduateJobFinder",
-        "projectPath": "c:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
+        "projectPath": "C:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\GraduateJobFinder.csproj",
         "packagesPath": "C:\\Users\\egebo\\.nuget\\packages\\",
-        "outputPath": "c:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\obj\\",
+        "outputPath": "C:\\side_projects\\GraduateJobFinder\\GraduateJobFinder\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

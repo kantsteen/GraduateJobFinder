@@ -15,15 +15,28 @@ public class IndexModel : PageModel
         _context = context;
     }
 
+    public string CurrentSort { get; set; } = "date_desc";
     public string NextDateSort { get; set; }
-
     public IList<JobPosting> JobPostings { get; set; } = default!;
+    public List<string> ProgLangList = new List<string> {"Python", "C", "C++", "Java", "C#", "JavaScript", "Visual Basic",
+                                 "SQL", "R", "Rust", "Fortran", "Go", "Delphi/Object Pascal", "PHP",
+                                 "Scratch", "Assembly Language", "Ada", "Swift", "Objective-C", "COBOL",
+                                 "TypeScript", "Kotlin", "Dart", "Ruby", "Lua", "Scala", "Elixir",
+                                 "Julia", "Haskell", "Zig"};
+    public List<string>? LanguageFilter { get; set; }
 
-    public async Task OnGetAsync(string sortOrder)
+    public async Task OnGetAsync(string sortOrder, List<string>? programmingLanguages)
     {
-        NextDateSort = sortOrder == "date_asc" ? "date_desc" : "date_asc";
-
         IQueryable<JobPosting> jobPostsIQ = _context.JobPosting;
+
+        if (programmingLanguages != null && programmingLanguages.Count > 0)
+        {
+            jobPostsIQ = jobPostsIQ.Where(j => programmingLanguages.Any(language => j.Description.Contains(language)));
+            LanguageFilter = programmingLanguages;
+        }
+
+        CurrentSort = sortOrder == "date_asc" ? "date_asc" : "date_desc";
+        NextDateSort = sortOrder == "date_asc" ? "date_desc" : "date_asc";
 
         switch (sortOrder)
         {
