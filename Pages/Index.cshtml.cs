@@ -16,7 +16,7 @@ public class IndexModel : PageModel
     }
 
     public string CurrentSort { get; set; } = "date_desc";
-    public string NextDateSort { get; set; }
+    public string NextDateSort { get; set; } = "date_asc";
     public IList<JobPosting> JobPostings { get; set; } = default!;
     public List<string> ProgLangList = new List<string> {"Python", "C", "C++", "Java", "C#", "JavaScript", "Visual Basic",
                                  "SQL", "R", "Rust", "Fortran", "Go", "Delphi/Object Pascal", "PHP",
