@@ -27,6 +27,7 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync(string sortOrder, List<string>? programmingLanguages)
     {
+        // Remember to load the related data of a job posting like its programming languages
         IQueryable<JobPosting> jobPostsIQ = _context.JobPosting;
 
         if (programmingLanguages != null && programmingLanguages.Count > 0)

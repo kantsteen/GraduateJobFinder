@@ -14,6 +14,8 @@ namespace GraduateJobFinder.Data
         {
         }
 
+        // Figure out why ' = default!' is needed
         public DbSet<GraduateJobFinder.Models.JobPosting> JobPosting { get; set; } = default!;
+        public DbSet<GraduateJobFinder.Models.ProgrammingLanguage> ProgrammingLanguage { get; set; } = default!;
     }
 }

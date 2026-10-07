@@ -20,5 +20,8 @@ namespace GraduateJobFinder.Models
         [Url]
         [DataType(DataType.Url)]
         public required string URL { get; set; }
+
+        // Figure out why ' = new()' is needed
+        public List<ProgrammingLanguage> ProgrammingLanguages { get; set; } = new();
     }
 }
