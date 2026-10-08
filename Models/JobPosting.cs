@@ -22,6 +22,9 @@ namespace GraduateJobFinder.Models
         public required string URL { get; set; }
 
         // Figure out why ' = new()' is needed
+        // new = () is needed so the property will be empty and not null at runtime if a '.Include()' 
+        // method is not called in Index.cshtml.cs when querying for JobPostings.
+        // This prevents a NullReferenceException
         public List<ProgrammingLanguage> ProgrammingLanguages { get; set; } = new();
     }
 }
