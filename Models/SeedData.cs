@@ -19,10 +19,16 @@ namespace GraduateJobFinder.Models
                     throw new ArgumentNullException("Null GraduateJobFinderContext");
                 }
 
+                // If any migrations are not applied when seeding the DB, they will be applied here
+                // This also ensures that if the DB doesn't exist on the computer it will be created here
+                context.Database.Migrate();
+
                 if (context.JobPosting.Any())
                 {
                     return;
                 }
+
+                // TODO: Update this page so programming languages are part of the SeedData          
 
                 context.JobPosting.AddRange(
                     new JobPosting
