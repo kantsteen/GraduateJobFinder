@@ -23,6 +23,12 @@
       <p>
         @Model.URL
       </p>
+      @foreach (var p in @Model.ProgrammingLanguages)
+      {
+        <p>
+        @p.Name
+        </p>
+      }
     </div>
   </article>
 </div>

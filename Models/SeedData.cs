@@ -20,7 +20,7 @@ namespace GraduateJobFinder.Models
                 }
 
                 // If any migrations are not applied when seeding the DB, they will be applied here
-                // This also ensures that if the DB doesn't exist on the computer it will be created here
+                // This also ensures that if the DB doesn't exist on the computer it will be created
                 context.Database.Migrate();
 
                 if (context.JobPosting.Any())
@@ -28,7 +28,11 @@ namespace GraduateJobFinder.Models
                     return;
                 }
 
-                // TODO: Update this page so programming languages are part of the SeedData          
+                var csharp = new ProgrammingLanguage{ Name = "c#" };
+                var python = new ProgrammingLanguage{ Name = "python" };
+                var java = new ProgrammingLanguage{ Name = "java" };
+
+                context.ProgrammingLanguage.AddRange( csharp, python, java );     
 
                 context.JobPosting.AddRange(
                     new JobPosting
@@ -38,7 +42,8 @@ namespace GraduateJobFinder.Models
                         Description = "You will work as a senior software engineer",
                         Location = "Copenhagen",
                         Date = new DateTime(2026, 9, 7),
-                        URL = "https://www.novonordisk.com/careers.html"
+                        URL = "https://www.novonordisk.com/careers.html",
+                        ProgrammingLanguages = { csharp, python }
                     },
                     new JobPosting
                     {
@@ -47,7 +52,8 @@ namespace GraduateJobFinder.Models
                         Description = "Build reliable web applications and APIs with C# and .NET",
                         Location = "Aarhus",
                         Date = new DateTime(2026, 9, 6),
-                        URL = "https://www.trifork.com/careers"
+                        URL = "https://www.trifork.com/careers",
+                        ProgrammingLanguages = { csharp }
                     },
                     new JobPosting
                     {
@@ -56,7 +62,8 @@ namespace GraduateJobFinder.Models
                         Description = "Work with a team to develop scalable backend services for public and private clients",
                         Location = "Copenhagen",
                         Date = new DateTime(2026, 9, 5),
-                        URL = "https://www.netcompany.com/careers"
+                        URL = "https://www.netcompany.com/careers",
+                        ProgrammingLanguages = { java }
                     },
                     new JobPosting
                     {
@@ -65,7 +72,9 @@ namespace GraduateJobFinder.Models
                         Description = "Develop software solutions using modern .NET technologies and agile methods",
                         Location = "Aarhus",
                         Date = new DateTime(2026, 9, 4),
-                        URL = "https://www.systematic.com/careers"
+                        URL = "https://www.systematic.com/careers",
+                        ProgrammingLanguages = { csharp }
+
                     },
                     new JobPosting
                     {
@@ -74,7 +83,8 @@ namespace GraduateJobFinder.Models
                         Description = "Help create digital tools that support the development of wind energy solutions",
                         Location = "Aarhus",
                         Date = new DateTime(2026, 9, 3),
-                        URL = "https://careers.vestas.com/"
+                        URL = "https://careers.vestas.com/",
+                        ProgrammingLanguages = { python }
                     },
                     new JobPosting
                     {
@@ -83,13 +93,12 @@ namespace GraduateJobFinder.Models
                         Description = "Join a cross-functional team building secure banking applications and services",
                         Location = "Silkeborg",
                         Date = new DateTime(2026, 9, 2),
-                        URL = "https://www.bankdata.dk/job-og-karriere"
+                        URL = "https://www.bankdata.dk/job-og-karriere",
+                        ProgrammingLanguages = { csharp, python }
                     }
                 );
                 context.SaveChanges();
             }
-            
         }
-        
     }
 }
