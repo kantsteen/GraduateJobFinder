@@ -18,22 +18,32 @@ public class IndexModel : PageModel
     public string CurrentSort { get; set; } = "date_desc";
     public string NextDateSort { get; set; } = "date_asc";
     public IList<JobPosting> JobPostings { get; set; } = default!;
-    public List<string> ProgLangList = new List<string> {"Python", "C", "C++", "Java", "C#", "JavaScript", "Visual Basic",
-                                 "SQL", "R", "Rust", "Fortran", "Go", "Delphi/Object Pascal", "PHP",
-                                 "Scratch", "Assembly Language", "Ada", "Swift", "Objective-C", "COBOL",
-                                 "TypeScript", "Kotlin", "Dart", "Ruby", "Lua", "Scala", "Elixir",
-                                 "Julia", "Haskell", "Zig"};
+    public List<string> AllProgrammingLanguages { get; set; } = [];
     public List<string>? LanguageFilter { get; set; }
 
     public async Task OnGetAsync(string sortOrder, List<string>? programmingLanguages)
     {
-        // Remember to load the related data of a JobPosting like its programming languages
+        // Include the ProgrammingLanguages property so the values in that property are included in the query
         IQueryable<JobPosting> jobPostsIQ = _context.JobPosting.Include(j => j.ProgrammingLanguages);
+        IQueryable<string> allProgrammingLanguages = _context.ProgrammingLanguage
+                                                            .OrderBy(language => language.Name)
+                                                            .Select(language => language.Name);
 
         if (programmingLanguages != null && programmingLanguages.Count > 0)
         {
-            jobPostsIQ = jobPostsIQ.Where(j => programmingLanguages.Any(language => j.Description.Contains(language)));
             LanguageFilter = programmingLanguages;
+
+            // SQLite is case sensitive and the name values in the ProgrammingLanguages property in each JobPosting object is in lower case. 
+            // Therefore the incoming list of programmingLanguages values should be converted to lower-case before filtering 
+            programmingLanguages = programmingLanguages.ConvertAll(language => language.ToLower());
+
+
+            // Filter job postings where for each job posting if any of its programming languages 
+            // is in the list of languages being filtered for it is returned
+            jobPostsIQ = jobPostsIQ.Where(j => j.ProgrammingLanguages
+                                   .Any(postingLanguage => programmingLanguages.Contains(postingLanguage.Name)));
+
+
         }
 
         CurrentSort = sortOrder == "date_asc" ? "date_asc" : "date_desc";
@@ -49,6 +59,7 @@ public class IndexModel : PageModel
                 break;
         }
 
+        AllProgrammingLanguages = await allProgrammingLanguages.AsNoTracking().ToListAsync();
         JobPostings = await jobPostsIQ.AsNoTracking().ToListAsync();
     }
 }
