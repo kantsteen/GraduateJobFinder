@@ -28,7 +28,7 @@ namespace GraduateJobFinder.Pages_Postings
                 return NotFound();
             }
 
-            var jobposting = await _context.JobPosting.FirstOrDefaultAsync(m => m.Id == id);
+            var jobposting = await _context.JobPosting.Include(j => j.ProgrammingLanguages).FirstOrDefaultAsync(m => m.Id == id);
 
             if (jobposting is not null)
             {
