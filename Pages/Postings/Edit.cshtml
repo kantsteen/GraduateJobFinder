@@ -7,6 +7,24 @@
 
 <h1>Edit</h1>
 
+
+
+
+@* TODO: Update this page so programming languages are part of the form *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <h4>JobPosting</h4>
 <hr />
 <div class="row">
@@ -44,7 +62,44 @@
                 <input asp-for="JobPosting.URL" class="form-control" />
                 <span asp-validation-for="JobPosting.URL" class="text-danger"></span>
             </div>
+
             <div class="form-group">
+                <label asp-for="LanguageName" class="control-label"></label>
+                <input asp-for="LanguageName" list="language-options" class="form-control" />
+                <datalist id="language-options">
+                    @foreach (var LanguageName in Model.AllProgrammingLanguageNames)
+                    {
+                        <option value="@LanguageName"></option>
+                    }
+                </datalist>
+
+                @foreach (var programmingLanguage in Model.JobPosting.ProgrammingLanguages)
+                {
+                    <span class="badge text-bg-light border d-inline-flex align-items-center fs-6 me-1 mt-2">
+                        @programmingLanguage.Name
+                        <button type="submit"
+                                asp-page-handler="RemoveLanguage"
+                                asp-route-languageToRemove="@programmingLanguage.Name"
+                                formnovalidate
+                                class="btn-close" aria-label="Remove @programmingLanguage.Name"></button>
+                    </span> 
+                }
+                <span asp-validation-for="LanguageName" class="text-danger"></span>
+            </div>
+            @* <div>
+                <b>Current job posting languages:</b>
+                <dl>
+                    <dd>
+                        @foreach (var programmingLanguage in Model.JobPosting.ProgrammingLanguages)
+                        {
+                            @programmingLanguage.Name
+                            <br />
+                        }
+                    </dd>
+                </dl>
+            </div> *@
+
+            <div class="form-group mt-2">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -56,5 +111,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

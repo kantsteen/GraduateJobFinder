@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GraduateJobFinder.Data;
 using GraduateJobFinder.Models;
+using System.ComponentModel.DataAnnotations;
 
+// TODO understand this file better
 namespace GraduateJobFinder.Pages_Postings
 {
     public class EditModel : PageModel
@@ -23,6 +25,12 @@ namespace GraduateJobFinder.Pages_Postings
         [BindProperty]
         public JobPosting JobPosting { get; set; } = default!;
 
+        public List<string> AllProgrammingLanguageNames { get; set; } = [];
+
+        [BindProperty]
+        [Required(ErrorMessage = "Enter a programming language")]
+        public string LanguageName { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -30,12 +38,15 @@ namespace GraduateJobFinder.Pages_Postings
                 return NotFound();
             }
 
-            var jobposting =  await _context.JobPosting.FirstOrDefaultAsync(m => m.Id == id);
-            if (jobposting == null)
+            var jobPosting = await _context.JobPosting.Include(j => j.ProgrammingLanguages).FirstOrDefaultAsync(j => j.Id == id);
+            if (jobPosting == null)
             {
                 return NotFound();
             }
-            JobPosting = jobposting;
+
+            await LoadAllProgrammingLanguageNamesAsync();
+
+            JobPosting = jobPosting;
             return Page();
         }
 
@@ -43,12 +54,50 @@ namespace GraduateJobFinder.Pages_Postings
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            await LoadAllProgrammingLanguageNamesAsync();
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(JobPosting).State = EntityState.Modified;
+            var jobPosting = await _context.JobPosting
+                .Include(j => j.ProgrammingLanguages)
+                .FirstOrDefaultAsync(j => j.Id == JobPosting.Id);
+
+            if (jobPosting == null)
+            {
+                return NotFound();
+            }
+
+            if (!String.IsNullOrWhiteSpace(LanguageName))
+            {
+                string language = LanguageName.Trim();
+
+                var alreadyAdded = jobPosting.ProgrammingLanguages
+                    .Any(programmingLanguage => programmingLanguage.Name == language);
+
+                if (alreadyAdded)
+                {
+                    ModelState.AddModelError(
+                        nameof(LanguageName),
+                        $"'{language}' is already added to this job posting."
+                        );
+                    return Page();
+                }
+
+                var programmingLanguage = await _context.ProgrammingLanguage
+                    .FirstOrDefaultAsync(p => p.Name == language);
+                if (programmingLanguage == null)
+                {
+                    programmingLanguage = new ProgrammingLanguage() { Name = language };
+                }
+
+                jobPosting.ProgrammingLanguages.Add(programmingLanguage);
+            }
+
+            // TODO understand this line better
+            _context.Entry(jobPosting).CurrentValues.SetValues(JobPosting);
 
             try
             {
@@ -67,6 +116,41 @@ namespace GraduateJobFinder.Pages_Postings
             }
 
             return RedirectToPage("./Index");
+        }
+
+        public async Task<IActionResult> OnPostRemoveLanguageAsync(string languageToRemove)
+        {
+            var jobPosting = await _context.JobPosting
+                .Include(j => j.ProgrammingLanguages)
+                .FirstOrDefaultAsync(j => j.Id == JobPosting.Id);
+
+            if (jobPosting == null)
+            {
+                return NotFound();
+            }
+
+            if (!String.IsNullOrWhiteSpace(languageToRemove))
+            {
+                var programmingLanguage = jobPosting.ProgrammingLanguages.FirstOrDefault(p => p.Name == languageToRemove);
+
+                // If the job posting has no language equal to languageToRemove, programmingLanguage is null
+                if (programmingLanguage != null)
+                {
+                    jobPosting.ProgrammingLanguages.Remove(programmingLanguage);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            return RedirectToPage(new {id = JobPosting.Id});
+        }
+
+        private async Task LoadAllProgrammingLanguageNamesAsync()
+        {
+            AllProgrammingLanguageNames = await _context.ProgrammingLanguage
+                .OrderBy(programmingLanguage => programmingLanguage.Name)
+                .Select(programmingLanguage => programmingLanguage.Name)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         private bool JobPostingExists(int id)
