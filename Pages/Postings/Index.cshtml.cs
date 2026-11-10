@@ -23,7 +23,7 @@ namespace GraduateJobFinder.Pages_Postings
 
         public async Task OnGetAsync()
         {
-            JobPosting = await _context.JobPosting.ToListAsync();
+            JobPosting = await _context.JobPosting.Include(j => j.ProgrammingLanguages).ToListAsync();
         }
     }
 }

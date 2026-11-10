@@ -7,24 +7,6 @@
 
 <h1>Edit</h1>
 
-
-
-
-@* TODO: Update this page so programming languages are part of the form *@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <h4>JobPosting</h4>
 <hr />
 <div class="row">
@@ -86,18 +68,6 @@
                 }
                 <span asp-validation-for="LanguageName" class="text-danger"></span>
             </div>
-            @* <div>
-                <b>Current job posting languages:</b>
-                <dl>
-                    <dd>
-                        @foreach (var programmingLanguage in Model.JobPosting.ProgrammingLanguages)
-                        {
-                            @programmingLanguage.Name
-                            <br />
-                        }
-                    </dd>
-                </dl>
-            </div> *@
 
             <div class="form-group mt-2">
                 <input type="submit" value="Save" class="btn btn-primary" />

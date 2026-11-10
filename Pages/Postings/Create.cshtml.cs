@@ -25,7 +25,8 @@ namespace GraduateJobFinder.Pages_Postings
         public IActionResult OnGet()
         {
             IQueryable<string> allProgrammingLanguages = _context.ProgrammingLanguage.OrderBy(p => p.Name)
-                                                                         .Select(p => p.Name);
+                                                                                     .Select(p => p.Name);
+
             AllProgrammingLanguages = allProgrammingLanguages.AsNoTracking().ToList();
             return Page();
         }

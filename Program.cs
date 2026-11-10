@@ -28,6 +28,7 @@ using (var scope = app.Services.CreateScope())
     SeedData.Initialize(services);
 }
 
+// Adds middleware to the WebApplication
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -36,12 +37,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// Adds middleware to the WebApplication
 app.UseHttpsRedirection();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
+// Maps endpoints 
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
