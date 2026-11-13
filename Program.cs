@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using GraduateJobFinder.Data;
 using GraduateJobFinder.Models;
+using GraduateJobFinder.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 // if (builder.Environment.IsDevelopment())
 // {
-    builder.Services.AddDbContext<GraduateJobFinderContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("GraduateJobFinderContext") ?? throw new InvalidOperationException("Connection string 'GraduateJobFinderContext' not found.")));
+builder.Services.AddDbContext<GraduateJobFinderContext>(options =>
+options.UseSqlite(builder.Configuration.GetConnectionString("GraduateJobFinderContext") ?? throw new InvalidOperationException("Connection string 'GraduateJobFinderContext' not found.")));
 // }
 // else
 // {
@@ -46,5 +47,30 @@ app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
+
+app.MapGet("/api/jobpostings/{id:int}", async (int id, GraduateJobFinderContext db) =>
+{
+    // TODO switch to the Select method and use the JobPostingDto object
+    var posting = await db.JobPosting
+                        .Where(j => j.Id == id)
+                        .Select(j => new JobPostingDto(
+                            j.Id, 
+                            j.CompanyName,
+                            j.Title,
+                            j.Description,
+                            j.Location,
+                            j.Date,
+                            j.URL,
+                            j.ProgrammingLanguages.Select(p => new JobPostingLanguageDto(p.Name)).ToList()))
+                                .FirstOrDefaultAsync();
+
+    if (posting == null)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(posting);
+});
+
 
 app.Run();
