@@ -50,7 +50,6 @@ app.MapRazorPages()
 
 app.MapGet("/api/jobpostings/{id:int}", async (int id, GraduateJobFinderContext db) =>
 {
-    // TODO switch to the Select method and use the JobPostingDto object
     var posting = await db.JobPosting
                         .Where(j => j.Id == id)
                         .Select(j => new JobPostingDto(
@@ -70,6 +69,23 @@ app.MapGet("/api/jobpostings/{id:int}", async (int id, GraduateJobFinderContext 
     }
 
     return Results.Ok(posting);
+});
+
+
+app.MapGet("/api/jobpostings", async (GraduateJobFinderContext db) =>
+{
+    var postings = await db.JobPosting
+                        .Select(j => new JobPostingDto(
+                            j.Id, 
+                            j.CompanyName,
+                            j.Title,
+                            j.Description,
+                            j.Location,
+                            j.Date,
+                            j.URL,
+                            j.ProgrammingLanguages.Select(p => new JobPostingLanguageDto(p.Name)).ToList())).ToListAsync();
+
+    return Results.Ok(postings);
 });
 
 
