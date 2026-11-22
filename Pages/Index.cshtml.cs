@@ -42,8 +42,6 @@ public class IndexModel : PageModel
             // is in the list of languages being filtered for it is returned
             jobPostsIQ = jobPostsIQ.Where(j => j.ProgrammingLanguages
                                    .Any(postingLanguage => programmingLanguages.Contains(postingLanguage.Name)));
-
-
         }
 
         CurrentSort = sortOrder == "date_asc" ? "date_asc" : "date_desc";

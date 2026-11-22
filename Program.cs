@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using GraduateJobFinder.Data;
 using GraduateJobFinder.Models;
 using GraduateJobFinder.Dtos;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,7 +54,7 @@ app.MapGet("/api/jobpostings/{id:int}", async (int id, GraduateJobFinderContext 
     var posting = await db.JobPosting
                         .Where(j => j.Id == id)
                         .Select(j => new JobPostingDto(
-                            j.Id, 
+                            j.Id,
                             j.CompanyName,
                             j.Title,
                             j.Description,
@@ -68,22 +69,32 @@ app.MapGet("/api/jobpostings/{id:int}", async (int id, GraduateJobFinderContext 
         return Results.NotFound();
     }
 
+
     return Results.Ok(posting);
 });
 
 
-app.MapGet("/api/jobpostings", async (GraduateJobFinderContext db) =>
+app.MapGet("/api/jobpostings", async (string[]? language, GraduateJobFinderContext db) =>
 {
-    var postings = await db.JobPosting
+    IQueryable<JobPosting> query = db.JobPosting;
+    
+    if (language != null && language.Length > 0)
+    {
+        language = language.Select(l => l.ToLower()).ToArray();
+
+        query = query.Where(j => j.ProgrammingLanguages.Any(postingLanguage => language.Contains(postingLanguage.Name)));
+    }
+    
+    var postings = await query
                         .Select(j => new JobPostingDto(
-                            j.Id, 
-                            j.CompanyName,
-                            j.Title,
-                            j.Description,
-                            j.Location,
-                            j.Date,
-                            j.URL,
+                            j.Id, j.CompanyName, 
+                            j.Title, 
+                            j.Description, 
+                            j.Location, 
+                            j.Date, 
+                            j.URL, 
                             j.ProgrammingLanguages.Select(p => new JobPostingLanguageDto(p.Name)).ToList())).ToListAsync();
+
 
     return Results.Ok(postings);
 });
