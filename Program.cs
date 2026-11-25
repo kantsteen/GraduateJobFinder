@@ -87,7 +87,8 @@ app.MapGet("/api/jobpostings", async (string[]? language, GraduateJobFinderConte
     
     var postings = await query
                         .Select(j => new JobPostingDto(
-                            j.Id, j.CompanyName, 
+                            j.Id, 
+                            j.CompanyName, 
                             j.Title, 
                             j.Description, 
                             j.Location, 
@@ -97,6 +98,13 @@ app.MapGet("/api/jobpostings", async (string[]? language, GraduateJobFinderConte
 
 
     return Results.Ok(postings);
+});
+
+app.MapGet("/api/programminglanguages", async (GraduateJobFinderContext db) =>
+{
+    var languages = await db.ProgrammingLanguage.OrderBy(l => l.Name).Select(l => new ProgrammingLanguageDto(l.Id, l.Name)).ToListAsync();
+
+    return Results.Ok(languages);
 });
 
 

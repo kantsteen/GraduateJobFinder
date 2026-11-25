@@ -13,6 +13,6 @@ namespace GraduateJobFinder.Dtos
         string Location,
         DateTime Date,
         string Url,
-        List<JobPostingLanguageDto> programmingLanguages
+        List<JobPostingLanguageDto> ProgrammingLanguages
     );
 }
